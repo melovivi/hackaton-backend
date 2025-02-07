@@ -20,7 +20,7 @@ import {
     @JoinColumn({ name: 'post_id' })
     post: Post
   
-    @OneToMany(() => Question, (question) => question.quiz)
+    @OneToMany(() => Question, (question) => question.quiz, { cascade: true, onDelete: 'CASCADE' })
     questions: Question[]
   
     @CreateDateColumn({ name: 'created_at' })

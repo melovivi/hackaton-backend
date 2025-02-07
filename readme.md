@@ -1,5 +1,5 @@
 # Sobre o projeto
-On-School é um projeto de gestão de conteúdo e acesso a recursos educacionais online, direcionados a professores da rede pública de educação.
+É um projeto de gestão de conteúdo e acesso a recursos educacionais online, direcionados a professores da rede pública de educação.
 
 
 ## Tecnologias utilizadas
@@ -20,7 +20,7 @@ Para rodar o projeto localmente, você precisará ter instalado em sua máquina:
 ## Como instalar e executar o projeto
 1. Clone o repositório:
 ```sh
-git clone https://github.com/melovivi/on-school.git
+git clone https://github.com/melovivi/hackaton-backend.git
 ```
 
 2. Para iniciar o banco de dados PostgreSQL usando Docker Compose, vá no diretório ```/docker``` e execute o comando:

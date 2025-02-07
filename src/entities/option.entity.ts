@@ -15,7 +15,7 @@ export class Option implements IOption {
   @PrimaryGeneratedColumn('uuid')
   id?: string
 
-  @ManyToOne(() => Question, (question) => question.options)
+  @ManyToOne(() => Question, (question) => question.options, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'question_id' })
   question: Question
 

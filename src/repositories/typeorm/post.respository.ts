@@ -21,7 +21,7 @@ export class PostRepository implements IPostRepository {
   async findById(id: string): Promise<IPost | null> {
     return await this.repository.findOne({
       where: { id },
-      relations: ['author'],
+      relations: ['author', 'quiz'],
     })
   }
 
@@ -29,7 +29,7 @@ export class PostRepository implements IPostRepository {
     return await this.repository.find({
       take: limit,
       skip: page * limit,
-      relations: ['author'],
+      relations: ['author', 'quiz'],
     })
   }
 
@@ -42,7 +42,7 @@ export class PostRepository implements IPostRepository {
       this.repository.find({
         take: limit,
         skip: page * limit,
-        relations: ['author'],
+        relations: ['author', 'quiz'],
         where: [
           { title: Like(`%${keyword}%`) },
           { content: Like(`%${keyword}%`) },
@@ -78,6 +78,22 @@ export class PostRepository implements IPostRepository {
   }
 
   async delete(id: string): Promise<void> {
+    const post = await this.repository.findOne({ where: { id }, relations: ['quiz', 'quiz.questions', 'quiz.questions.options'] })
+    if (post && post.quiz) {
+      if (post.quiz.questions) {
+        for (const question of post.quiz.questions) {
+          if (question.options) {
+            for (const option of question.options) {
+              await this.repository.manager.remove(option)
+            }
+          }
+          await this.repository.manager.remove(question)
+        }
+        
+      }
+      await this.repository.manager.remove(post.quiz)
+    }
+  
     await this.repository.delete(id)
   }
 }

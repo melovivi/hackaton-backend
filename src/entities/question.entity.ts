@@ -17,14 +17,14 @@ export class Question implements IQuestion {
   @PrimaryGeneratedColumn('uuid')
   id?: string
 
-  @ManyToOne(() => Quiz, (quiz) => quiz.questions)
+  @ManyToOne(() => Quiz, (quiz) => quiz.questions, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'quiz_id' })
   quiz: Quiz
 
   @Column({ type: 'text' })
   content: string
 
-  @OneToMany(() => Option, (option) => option.question)
+  @OneToMany(() => Option, (option) => option.question, { cascade: true, onDelete: 'CASCADE' })
   options: Option[]
 
   @CreateDateColumn({ name: 'created_at' })

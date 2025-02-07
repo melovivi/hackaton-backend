@@ -27,7 +27,7 @@ export class Post implements IPost {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   author: User
 
-  @OneToOne(() => Quiz, (quiz) => quiz.post)
+  @OneToOne(() => Quiz, (quiz) => quiz.post, { cascade: true, onDelete: 'CASCADE' })
   quiz: Quiz
 
   @CreateDateColumn({
